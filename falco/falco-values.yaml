@@ -1,6 +1,12 @@
 driver:
   kind: modern_ebpf
 
+collectors:
+  enabled: true
+
+controller:
+  kind: daemonset
+
 falcosidekick:
   enabled: true
   config:
@@ -12,7 +18,7 @@ falcosidekick:
       minimumpriority: "warning"
   webui:
     enabled: false
-
+    
 customRules:
   custom-k8s-rules.yaml: |-
     - rule: Cryptominer Binary Execution
