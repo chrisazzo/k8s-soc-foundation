@@ -1,6 +1,9 @@
 driver:
   kind: ebpf
 
+falco:
+  syscallBufSizePreset: 1
+
 collectors:
   enabled: true
 
