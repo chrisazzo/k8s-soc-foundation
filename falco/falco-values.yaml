@@ -26,9 +26,9 @@ customRules:
         Cryptominer execution detected
         (user=%user.name command=%proc.cmdline pid=%proc.pid
          container_id=%container.id image=%container.image.repository
-         pod=%k8s.pod.name ns=%k8s.ns.name node=%k8s.node.name)
+         pod=%k8s.pod.name ns=%k8s.ns.name)
       priority: CRITICAL
-      tags: [cryptominer, mitre_impact, T1496, PCI_DSS_11.5.1]
+      tags: [cryptominer, mitre_impact, T1496]
 
     - rule: Service Account Token Read
       desc: Detects reading of SA token inside a container
@@ -41,3 +41,4 @@ customRules:
          file=%fd.name pod=%k8s.pod.name ns=%k8s.ns.name)
       priority: WARNING
       tags: [mitre_credential_access, T1528]
+  
