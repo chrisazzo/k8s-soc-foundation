@@ -1,0 +1,13 @@
+local.settings.json
+cosign.key
+*.env
+.env
+kubeconfig
+kubeconfig-*
+**/secrets/
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+.DS_Store
+Thumbs.db
