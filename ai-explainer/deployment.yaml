@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: falco-ai-explainer
+  namespace: falco
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: falco-ai-explainer
+  template:
+    metadata:
+      labels:
+        app: falco-ai-explainer
+    spec:
+      containers:
+      - name: explainer
+        image: python:3.11-slim
+        command: ["sh", "-c"]
+        args:
+          - pip install flask openai requests pydantic gunicorn -q &&
+            gunicorn --bind 0.0.0.0:8080 explainer:app
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ai-explainer-secrets
+              key: openai-api-key
+        - name: SLACK_WEBHOOK_URL
+          valueFrom:
+            secretKeyRef:
+              name: ai-explainer-secrets
+              key: slack-webhook-url
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: falco-ai-explainer
+  namespace: falco
+spec:
+  selector:
+    app: falco-ai-explainer
+  ports:
+  - port: 8080
+    targetPort: 8080
