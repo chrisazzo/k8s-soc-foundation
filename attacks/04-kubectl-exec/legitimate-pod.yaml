@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: legitimate-nginx
+  namespace: default
+  labels:
+    attack: "04-kubectl-exec"
+    mitre: "T1609"
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.25
+    ports:
+    - containerPort: 80
